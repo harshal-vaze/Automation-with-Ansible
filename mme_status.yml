@@ -1,0 +1,9 @@
+---
+
+- hosts: 172.29.212.221
+  become: true
+  tasks:
+
+  - name: mme status
+    systemd: status
+      name: open5gs-mmed
