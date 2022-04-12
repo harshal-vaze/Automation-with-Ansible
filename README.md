@@ -4,4 +4,4 @@ VM1 : Open5gs \n
 VM2 : srsRAN \n
 VM3 : Ansible \n
 
-![](image.PNG)
+![](image.png)
