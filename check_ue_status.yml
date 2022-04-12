@@ -1,0 +1,8 @@
+---
+
+- hosts: 172.31.19.64
+  become: true
+  tasks:
+
+  - name: Status of UE
+    command: ip netns list

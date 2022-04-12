@@ -1,0 +1,8 @@
+---
+
+- hosts: 172.31.19.64
+  become: true
+  tasks:
+
+  - name: Start eNodeB
+    command: /home/lab/srsRAN/build/./srsenb/src/srsenb --rf.device_name=zmq --rf.device_args="fail_on_disconnect=true,tx_port=tcp://*:2000,rx_port=tcp://localhost:2001,id=enb,base_srate=23.04e6"

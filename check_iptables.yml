@@ -1,0 +1,17 @@
+---
+
+- hosts: 172.31.19.64
+  become: true
+  tasks:
+
+  - name: IP tables
+    command: iptables -L
+    register: iptables_output
+
+  - name: NAT tables
+    command: iptables -L -t nat
+    register: nat_output
+
+  - debug:
+      var: iptables_output.stdout_lines
+      var: nat_output.stdout_lines

@@ -1,3 +1,4 @@
+
 ansible all --key-file ~/.ssh/id_ed25519 -i inventory -m ping
 
 ansible all -m ping
@@ -5,3 +6,23 @@ ansible all -m ping
 ansible all --list-hosts
 
 ansible all -m gather_facts
+
+#sudo apt update
+ansible all -m apt -a update_cache=true --become --ask-become-pass
+
+#run playbook
+ansible-playbook --ask-become-pass install_vim.yml
+
+
+-v for displaying output
+
+#mme-status
+ansible-playbook --ask-become-pass mme_status.yml
+
+
+#start-eNodeB
+ansible-playbook --ask-become-pass start_enb.yml
+
+
+#start-UE
+ansible-playbook --ask-become-pass start_ue.yml

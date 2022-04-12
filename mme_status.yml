@@ -1,9 +1,12 @@
 ---
 
-- hosts: 172.29.212.221
+- hosts: 172.31.17.14
   become: true
   tasks:
 
   - name: mme status
-    systemd: status
-      name: open5gs-mmed
+    command: systemctl status open5gs-mmed
+    register: mme_status
+
+  - debug:
+      var: mme_status.stdout_lines
