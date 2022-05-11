@@ -1,0 +1,20 @@
+---
+
+- hosts: all
+  become: true
+  tasks:
+
+  - include_tasks: mme_status.yml
+    when: ansible_hostname == "Ubuntu-1"
+
+  - include_tasks: check_ue_status.yml
+    when: ansible_hostname == "ubuntu6-Virtual-Machine"
+
+  - include_tasks: check_iptables.yml
+    when: ansible_hostname == "ubuntu6-Virtual-Machine"
+
+  - include_tasks: start_enb.yml
+    when: ansible_hostname == "ubuntu6-Virtual-Machine"
+
+  - include_tasks: start_ue.yml
+    when: ansible_hostname == "ubuntu6-Virtual-Machine"

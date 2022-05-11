@@ -1,8 +1,8 @@
 ---
 
-#- hosts: 172.26.164.54
-#  become: true
-#  tasks:
+- hosts: 172.26.164.54
+  become: true
+  tasks:
 
   - name: mme status
     command: systemctl status open5gs-mmed

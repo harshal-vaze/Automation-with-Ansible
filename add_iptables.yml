@@ -1,0 +1,18 @@
+---
+
+- hosts: 172.26.171.176
+  become: true
+  tasks:
+
+  - name: Updating IP tables
+    command: sysctl -w net.ipv4.ip_forward=1
+    command: sudo iptables -I INPUT -i ogstun -j ACCEPT
+#    register: iptables_output
+
+  - name: Updating NAT tables
+    command: sudo iptables -t nat -A POSTROUTING -s 10.45.0.0/16 ! -o ogstun -j MASQUERADE
+#    register: nat_output
+
+#  - debug:
+#      var: iptables_output.stdout_lines
+#      var: nat_output.stdout_lines
