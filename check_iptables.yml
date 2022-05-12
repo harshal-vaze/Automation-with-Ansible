@@ -1,17 +1,16 @@
 ---
 
-#- hosts: 172.26.171.176
-#  become: true
-#  tasks:
-
-  - name: IP tables
+  - name: Check IP tables
     command: iptables -L
     register: iptables_output
 
-  - name: NAT tables
+  - debug:
+      var: iptables_output.stdout_lines
+
+  - name: Check NAT tables
     command: iptables -L -t nat
     register: nat_output
 
   - debug:
-      var: iptables_output.stdout_lines
       var: nat_output.stdout_lines
+

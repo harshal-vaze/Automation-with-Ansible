@@ -5,20 +5,24 @@
   tasks:
 
   - name: Updating IP tables
-    command: sysctl -w net.ipv4.ip_forward=1
-    command: sudo iptables -I INPUT -i ogstun -j ACCEPT
+    command: "{{ item }}"
+    with_items:
+    - sysctl -w net.ipv4.ip_forward=1
+    - iptables -I INPUT -i ogstun -j ACCEPT
 
   - name: Updating NAT tables
     command: sudo iptables -t nat -A POSTROUTING -s 10.45.0.0/16 ! -o ogstun -j MASQUERADE
 
-  - name: IP tables 
+  - name: Check IP tables 
     command: iptables -L
     register: iptables_output
 
-  - name: NAT tables
+  - debug:
+      var: iptables_output.stdout_lines
+
+  - name: Check NAT tables
     command: iptables -L -t nat
     register: nat_output
 
   - debug:
-      var: iptables_output.stdout_lines
       var: nat_output.stdout_lines

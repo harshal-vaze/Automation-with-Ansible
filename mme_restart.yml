@@ -1,12 +1,12 @@
 ---
 
-#- hosts: 172.26.164.54
-#  become: true
-#  tasks:
-
-  - name: mme status
+  - name: Restart MME
     command: systemctl restart open5gs-mmed
-#    register: mme_status
-#
-#  - debug:
-#      var: mme_status.stdout_lines
+
+  - name: MME status
+    command: systemctl status open5gs-mmed
+    register: mme_status
+
+  - debug:
+      var: mme_status.stdout_lines
+

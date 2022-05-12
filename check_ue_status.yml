@@ -1,9 +1,5 @@
 ---
 
-#- hosts: 172.26.171.176
-#  become: true
-#  tasks:
-
   - name: Status of UE
     command: ip netns list
     register: ue_list

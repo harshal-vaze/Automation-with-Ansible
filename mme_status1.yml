@@ -4,7 +4,7 @@
   become: true
   tasks:
 
-  - name: mme status
+  - name: MME status
     command: systemctl status open5gs-mmed
     register: mme_status
 
