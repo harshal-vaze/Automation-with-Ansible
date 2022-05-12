@@ -1,0 +1,28 @@
+---
+
+- hosts: 172.26.164.54
+  become: true
+  tasks:
+
+  - name: mme status
+    shell: ps -A | grep open5gs-mmed
+    register: grep
+    ignore_errors: yes
+
+  - name: mme restart
+    include_tasks: mme_restart.yml
+    when: not grep.stdout_lines
+
+  - name: mme status display
+    include_tasks: mme_status.yml
+    register: mme_status
+    when: grep.stdout_lines
+
+
+#    command: systemctl status open5gs-mmed | grep -ir 'Active'
+#    shell: "grep -ir 'Active' *"
+#    register: mme_status
+
+#  - debug:
+#      var: mme_status.stdout_lines
+
