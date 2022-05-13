@@ -1,6 +1,6 @@
 ---
 
-- hosts: 172.26.164.54
+- hosts: 172.21.250.20
   become: true
   tasks:
 

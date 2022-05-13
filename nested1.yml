@@ -5,16 +5,16 @@
   tasks:
 
   - include_tasks: mme_status.yml
-    when: ansible_hostname == "Ubuntu-1"
+    when: ansible_hostname == "open5gs"
 
   - include_tasks: check_ue_status.yml
-    when: ansible_hostname == "ubuntu6-Virtual-Machine"
+    when: ansible_hostname == "srsran"
 
   - include_tasks: check_iptables.yml
-    when: ansible_hostname == "ubuntu6-Virtual-Machine"
+    when: ansible_hostname == "srsran"
 
   - include_tasks: start_enb.yml
-    when: ansible_hostname == "ubuntu6-Virtual-Machine"
+    when: ansible_hostname == "srsran"
 
   - include_tasks: start_ue.yml
-    when: ansible_hostname == "ubuntu6-Virtual-Machine"
+    when: ansible_hostname == "srsran"

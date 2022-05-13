@@ -9,15 +9,15 @@
     shell: ps -A | grep open5gs-mmed
     register: grep_mme
     ignore_errors: yes
-    when: ansible_hostname == "Ubuntu-1"
+    when: ansible_hostname == "open5gs"
 
   - name: MME restart
     include_tasks: mme_restart.yml
-    when: ansible_hostname == "Ubuntu-1" and not grep_mme.stdout_lines
+    when: ansible_hostname == "open5gs" and not grep_mme.stdout_lines
 
   - name: MME status display
     include_tasks: mme_status.yml
-    when: ansible_hostname == "Ubuntu-1" and grep_mme.stdout_lines
+    when: ansible_hostname == "open5gs" and grep_mme.stdout_lines
 
 
 
@@ -25,15 +25,15 @@
     command: ip netns list | grep ue
     register: grep_ue
     ignore_errors: yes
-    when: ansible_hostname == "ubuntu6-Virtual-Machine"
+    when: ansible_hostname == "srsran"
 
   - name: Add UE
     include_tasks: add_ue.yml
-    when: ansible_hostname == "ubuntu6-Virtual-Machine" and not grep_ue.stdout_lines
+    when: ansible_hostname == "srsran" and not grep_ue.stdout_lines
 
   - name: UE status display
     include_tasks: check_ue_status.yml
-    when: ansible_hostname == "ubuntu6-Virtual-Machine" and grep_ue.stdout_lines
+    when: ansible_hostname == "srsran" and grep_ue.stdout_lines
 
 
 
@@ -41,24 +41,24 @@
     shell: iptables -L -t nat | grep all
     register: grep_ip
     ignore_errors: yes
-    when: ansible_hostname == "ubuntu6-Virtual-Machine"
+    when: ansible_hostname == "srsran"
 
   - name: Add IP tables
     include_tasks: add_iptables.yml
-    when: ansible_hostname == "ubuntu6-Virtual-Machine" and not grep_ip.stdout_lines
+    when: ansible_hostname == "srsran" and not grep_ip.stdout_lines
 
   - name: IP tables status display
     include_tasks: check_iptables.yml
-    when: ansible_hostname == "ubuntu6-Virtual-Machine" and grep_ip.stdout_lines
+    when: ansible_hostname == "srsran" and grep_ip.stdout_lines
 
 
 
   - name: Start eNodeB
     include_tasks: start_enb.yml
-    when: ansible_hostname == "ubuntu6-Virtual-Machine"
+    when: ansible_hostname == "srsran"
 
 
 
   - name: Start UE
     include_tasks: start_ue.yml
-    when: ansible_hostname == "ubuntu6-Virtual-Machine"
+    when: ansible_hostname == "srsran"

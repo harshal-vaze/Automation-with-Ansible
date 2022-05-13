@@ -1,0 +1,43 @@
+---
+
+- hosts: 172.21.249.96
+  become: true
+  tasks:
+
+  - name: Start eNodeB
+    command: /home/lab/srsRAN/build/./srsenb/src/srsenb --rf.device_name=zmq --rf.device_args="fail_on_disconnect=true,tx_port=tcp://*:2000,rx_port=tcp://localhost:2001,id=enb,base_srate=23.04e6"
+    async: 1000
+    poll: 0
+    register: cmd
+
+  - async_status:
+      jid: "{{ cmd.ansible_job_id }}"
+    register: job_result
+    until: "'Setting' in job_result.stdout"
+    retries: 30
+    delay: 1
+
+  - debug:
+      msg: Going forward now
+
+#    register: enb
+
+#  - debug:
+#      var: enb.stdout_lines
+
+
+
+#- command: ./startup.sh
+#  async: 1000
+#  poll: 0
+#  register: cmd
+
+#- async_status:
+#    jid: "{{ cmd.ansible_job_id }}"
+#  register: job_result
+#  until: "'==== eNodeB started ===' in job_result.stdout"
+#  retries: 100
+#  delay: 1
+
+#- debug:
+#    msg: Going forward now
